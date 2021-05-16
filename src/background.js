@@ -58,25 +58,53 @@ function fetchGasPrice() {
   });
 }
 
+		//Fetch the price of Ethereum
+		const eth_api_url = 'https://api.gemini.com/v1/pubticker/ethusd';
+		function ethereumHttpObject() {
+			try { return new XMLHttpRequest(); }
+			catch (error) { }
+		}
+		function ethereumGetData() {
+			var request = ethereumHttpObject();
+			request.open("GET", eth_api_url, false);
+			request.send(null);
+			console.log(request.responseText);
+			return request.responseText;
+		}
+		function ethereumDataHandler() {
+			var raw_data_string = ethereumGetData();
+
+			var data = JSON.parse(raw_data_string);
+
+
+			var price = data.bid;
+
+			return price;
+		}
+
 // Create a consistent structure for data so we can use multiple providers
 function parseApiData(apiData, provider) {
   if(provider === "ethgasstation") {
     return {
       "slow": {
         "gwei": parseInt(apiData.safeLow, 10)/10,
-        "wait": "~"+apiData.safeLowWait + " minutes"
+        "wait": "~"+apiData.safeLowWait + " minutes",
+		"USD": "$"+parseInt((apiData.safeLow/476190476000000)*ethereumDataHandler())
       },
       "standard": {
         "gwei": parseInt(apiData.average, 10)/10,
-        "wait": "~"+apiData.avgWait + " minutes"
+        "wait": "~"+apiData.avgWait + " minutes",
+		"USD": "$"+parseInt((apiData.average/476190476000000)*ethereumDataHandler())
       },
       "fast": {
         "gwei": parseInt(apiData.fast, 10)/10,
-        "wait": "~"+apiData.fastWait + " minutes"
+        "wait": "~"+apiData.fastWait + " minutes",
+		"USD": "$"+parseInt((apiData.fast/476190476000000)*ethereumDataHandler())
       },
       "rapid": {
         "gwei": parseInt(apiData.fastest, 10)/10,
-        "wait": "~"+apiData.fastestWait + " minutes"
+        "wait": "~"+apiData.fastestWait + " minutes",
+		"USD": "$"+parseInt((apiData.fastest/476190476000000)*ethereumDataHandler())
       }
     }
   }
@@ -85,19 +113,23 @@ function parseApiData(apiData, provider) {
     return {
       "slow": {
         "gwei": Math.floor(parseInt(apiData.data.slow, 10)/1000000000),
-        "wait": ">10 minutes"
+        "wait": ">10 minutes",
+		"USD": "$"+parseInt((apiData.data.slow/476190476000000000000000)*ethereumDataHandler())
       },
       "standard": {
         "gwei": Math.floor(parseInt(apiData.data.standard, 10)/1000000000),
-        "wait": "~3 minutes"
+        "wait": "~3 minutes",
+		"USD": "$"+parseInt((apiData.data.standard/476190476000000000000000)*ethereumDataHandler())
       },
       "fast": {
         "gwei": Math.floor(parseInt(apiData.data.fast, 10)/1000000000),
-        "wait": "~1 minute"
+        "wait": "~1 minute",
+		"USD": "$"+parseInt((apiData.data.fast/476190476000000000000000)*ethereumDataHandler())
       },
       "rapid": {
         "gwei": Math.floor(parseInt(apiData.data.rapid, 10)/1000000000),
-        "wait": "~15 seconds"
+        "wait": "ASAP",
+		"USD": "$"+parseInt((apiData.data.rapid/476190476000000000000000)*ethereumDataHandler())
       }
     }
   }
@@ -106,19 +138,23 @@ function parseApiData(apiData, provider) {
     return {
       "slow": {
         "gwei": parseInt(apiData.slow.gwei, 10),
-        "wait": "<30 minutes"
+        "wait": "<30 minutes",
+		"USD": "$"+parseInt((apiData.slow.gwei/47619047600000)*ethereumDataHandler())
       },
       "standard": {
         "gwei": parseInt(apiData.normal.gwei, 10),
-        "wait": "<5 minutes"
+        "wait": "<5 minutes",
+		"USD": "$"+parseInt((apiData.normal.gwei/47619047600000)*ethereumDataHandler())
       },
       "fast": {
         "gwei": parseInt(apiData.fast.gwei, 10),
-        "wait": "<2 minutes"
+        "wait": "<2 minutes",
+		"USD": "$"+parseInt((apiData.fast.gwei/47619047600000)*ethereumDataHandler())
       },
       "rapid": {
         "gwei": parseInt(apiData.instant.gwei, 10),
-        "wait": "few seconds"
+        "wait": "ASAP",
+		"USD": "$"+parseInt((apiData.instant.gwei/47619047600000)*ethereumDataHandler())
       }
     }
   }
