@@ -4,5 +4,5 @@ Displays the latest gas price provided by [ETH Gas Station](https://ethgasstatio
 To install [click here]
 
 ## Credit
-All credits to nieldlr (nieldlr@gmail.com) modified by Ethprofit @ Ethprofit.net
+All credits to nieldlr (nieldlr@gmail.com) modified by Ethprofit @ [Ethprofit](Ethprofit.net).
 
