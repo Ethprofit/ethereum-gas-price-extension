@@ -27,21 +27,25 @@ function updateDom() {
 			<span class="gasprice-label">Slow</span>
 			<span class="gasprice-number">${escapeHtml(data.gasData.slow.gwei)}</span>
 			<span class="gasprice-wait">${escapeHtml(data.gasData.slow.wait)}</span>
+			<span class="gasprice-USD">${escapeHtml(data.gasData.slow.USD)}</span>
 		</div>`+
 		`<div class="gasprice js-gasprice" data-option="standard">
 			<span class="gasprice-label">Standard</span>
 			<span class="gasprice-number">${escapeHtml(data.gasData.standard.gwei)}</span>
 			<span class="gasprice-wait">${escapeHtml(data.gasData.standard.wait)}</span>
+			<span class="gasprice-USD">${escapeHtml(data.gasData.standard.USD)}</span>
 		</div>`+
 		`<div class="gasprice js-gasprice" data-option="fast">
 			<span class="gasprice-label">Fast</span>
 			<span class="gasprice-number">${escapeHtml(data.gasData.fast.gwei)}</span>
 			<span class="gasprice-wait">${escapeHtml(data.gasData.fast.wait)}</span>
+			<span class="gasprice-USD">${escapeHtml(data.gasData.fast.USD)}</span>
 		</div>`+
 		`<div class="gasprice js-gasprice" data-option="rapid">
 			<span class="gasprice-label">Rapid</span>
 			<span class="gasprice-number">${escapeHtml(data.gasData.rapid.gwei)}</span>
 			<span class="gasprice-wait">${escapeHtml(data.gasData.rapid.wait)}</span>
+			<span class="gasprice-USD">${escapeHtml(data.gasData.rapid.USD)}</span>
 		</div>`;
 
 		// Update dom
